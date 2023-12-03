@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DisputeDismantler"
+             Shell.NavBarIsVisible="false"
+             x:DataType="local:Transcriber"
+             x:Class="DisputeDismantler.MainPage">
+
+    <Grid x:Name="topGrid" Padding="10" >
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Image
+            Grid.RowSpan="3"
+            Margin="-10"
+            Source="dd.png"
+            Aspect="AspectFit"
+            VerticalOptions="End"
+            Opacity="0.1"
+            />
+
+        <CollectionView
+            x:Name="lstConversation"
+            ItemsSource="{x:Binding Conversation}"            
+            SelectionMode="None"
+            HorizontalScrollBarVisibility="Never"
+            ItemsUpdatingScrollMode="KeepScrollOffset"
+            VerticalScrollBarVisibility="Always">
+
+            <CollectionView.ItemTemplate>
+                <OnPlatform x:TypeArguments="DataTemplate">
+                    <On Platform="WinUI">
+                        <!-- SwipeView on Windows workaround... -->
+                        <DataTemplate x:DataType="local:Sentence">
+                            <Label 
+                                Text="{Binding Text}"
+                                Margin="{Binding Margin}"
+                                Padding="10"
+                                BackgroundColor="{Binding BkgColor}">
+
+                                <Label.GestureRecognizers>
+                                    <SwipeGestureRecognizer Direction="{Binding ExpectingSwipeDirection}" Command="{Binding DoubleTap}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </DataTemplate>
+                    </On>
+                    <On Platform="Android,iOS,MacCatalist,Tizen">
+                        <DataTemplate x:DataType="local:Sentence">
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItem Command="{Binding SwipeRight}" IsVisible="{Binding CanSwipeRight}" />
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
+                                <SwipeView.RightItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItem Command="{Binding SwipeLeft}" IsVisible="{Binding CanSwipeLeft}" />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <Label
+                                    Text="{Binding Text}"
+                                    Margin="{Binding Margin}"
+                                    Padding="10"
+                                    BackgroundColor="{Binding BkgColor}"
+                                />
+                            </SwipeView>
+                        </DataTemplate>
+                    </On>
+                </OnPlatform>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label
+            Grid.Row="1"
+            Padding="5"
+            Text="{Binding TextSoFar}"
+        />
+
+        <VerticalStackLayout
+            Grid.Row="2"
+            Padding="5"
+            Spacing="10">
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                <Button Text="Restart" Command="{Binding Restart}" />
+                <Grid>
+                    <Button
+                        Text="LISTEN" 
+                        WidthRequest="80" HeightRequest="60" CornerRadius="10" 
+                        BackgroundColor="{Binding RecButtonColor}" 
+                        Command="{Binding StartStopTranscribing}" 
+                        />
+                    <ActivityIndicator
+                        WidthRequest="80" HeightRequest="60"
+                        IsVisible="{Binding IsTranscribing}"
+                        IsRunning="{Binding IsTranscribing}"
+                        Color="Yellow"
+                        InputTransparent="True"
+                        />
+                </Grid>
+                <Grid>
+                    <Button 
+                        Text="TALK" 
+                        WidthRequest="80" HeightRequest="60" CornerRadius="10" 
+                        BackgroundColor="{Binding JudgeButtonColor}"
+                        Command="{Binding JudgeNow}" 
+                        />
+                    <ActivityIndicator
+                        WidthRequest="80" HeightRequest="60"
+                        IsVisible="{Binding IsJudging}"
+                        IsRunning="{Binding IsJudging}"
+                        Color="Yellow"
+                        InputTransparent="True"
+                        />
+                </Grid>
+                <Button 
+                    Text="?" 
+                    WidthRequest="60" HeightRequest="60" CornerRadius="30"
+                    Command="{Binding ShowInfo}"
+                    />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <Grid x:Name="InfoPage" Grid.RowSpan="3" IsVisible="{Binding IsInfoVisible}">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <WebView Source="about.html" />
+            <ContentView Grid.Row="1" BackgroundColor="#f4f4f4" Padding="0,10,0,0">
+                <Button Text="OK" WidthRequest="100" Command="{Binding ShowInfo}" HorizontalOptions="Center" />
+            </ContentView>
+        </Grid>
+
+    </Grid>
+</ContentPage>

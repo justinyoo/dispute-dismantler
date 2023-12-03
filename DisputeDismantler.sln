@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisputeDismantler", "DisputeDismantler\DisputeDismantler.csproj", "{D5B660F1-9A40-4282-9D65-42D6C47AD04C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D5B660F1-9A40-4282-9D65-42D6C47AD04C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5B660F1-9A40-4282-9D65-42D6C47AD04C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5B660F1-9A40-4282-9D65-42D6C47AD04C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D5B660F1-9A40-4282-9D65-42D6C47AD04C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5B660F1-9A40-4282-9D65-42D6C47AD04C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5B660F1-9A40-4282-9D65-42D6C47AD04C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {770487A3-E3D2-46DC-A3CA-978F03093C6E}
+	EndGlobalSection
+EndGlobal
